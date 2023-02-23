@@ -40,7 +40,5 @@
 
 @import './variables.css';
 
-:host ion-content {
-  --background: red;
-}
+
 

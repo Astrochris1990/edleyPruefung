@@ -55,7 +55,7 @@ export class AppPeopleDetail implements ComponentDidLoad {
         }
         {
           !!this.person &&
-          <ion-card style={{maxWidth: '500px', }}>
+          <ion-card style={{maxWidth: '500px', margin: '0 auto'}}>
             <ion-card-header>
               <ion-card-title>{this.person.name}</ion-card-title>
             </ion-card-header>
