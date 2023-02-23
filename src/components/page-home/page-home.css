@@ -1,0 +1,16 @@
+.card-image {
+  height: 150px;
+  max-height: 200px;
+  background-size: cover;
+}
+ion-col {
+  display: flex;
+}
+ion-card.flex {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+ion-card-content {
+  flex: 1;
+}
