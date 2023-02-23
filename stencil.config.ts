@@ -11,16 +11,7 @@ export const config: Config = {
       type: 'www',
       // comment the following line to disable service workers in production
       serviceWorker: null,
-      baseUrl: 'https://github.com/Astrochris1990/FirstProject.git',
-    },
-    {
-      type: 'dist',
-      esmLoaderPath: '../loader',
-      copy: [
-        { src: 'index.html' },
-        { src: '404.html' },
-      ],
+      baseUrl: 'https://myapp.local/',
     },
   ],
-  
 };

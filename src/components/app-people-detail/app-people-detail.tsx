@@ -1,6 +1,6 @@
 import { modalController } from '@ionic/core';
 import { Component, h, ComponentDidLoad, State, Prop } from '@stencil/core';
-import { API_URL } from '../../helpers/constants';
+import { API_URL, hi } from '../../helpers/constants';
 interface Person {
   birth_year: string;
   eye_color: string;
@@ -26,6 +26,7 @@ export class AppPeopleDetail implements ComponentDidLoad {
     })
 
     await modal.present()
+    console.log(hi)
   }
   
 
