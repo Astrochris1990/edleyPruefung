@@ -138,7 +138,7 @@ export class PageProfile {
         </ion-header>
         <ion-content class='ion-text-center'>
           <ion-card>
-            <ion-card-header onClick={() =>this.showModal()}>
+            <ion-card-header >
               <h1>
               People search (test Modal)
               </h1>
