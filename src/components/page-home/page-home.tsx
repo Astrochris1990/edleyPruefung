@@ -1,4 +1,4 @@
-import { Component, Fragment, h, State,getAssetPath } from '@stencil/core';
+import { Component, Fragment, h, State } from '@stencil/core';
 
 @Component({
   tag: 'page-home',
