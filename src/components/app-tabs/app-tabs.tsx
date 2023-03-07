@@ -8,20 +8,8 @@ import { Component, h, State } from '@stencil/core';
 export class AppTabs {
   
   @State() archive: number;
+
   
-
-  handlesubmitClicked = (event: CustomEvent<{ archive }>) => {
-    this.archive = event.detail.archive;
-    console.log(this.archive)
-  };
-  connectedCallback() {
-    window.addEventListener('submitClicked', this.handlesubmitClicked);
-    
-  }
-
-  disconnectedCallback() {
-    window.removeEventListener('submitClicked', this.handlesubmitClicked);
-  }
 
 
 
@@ -32,7 +20,7 @@ export class AppTabs {
           <ion-nav></ion-nav>
         </ion-tab>
         <ion-tab tab="tab-ledger">
-          <ion-nav></ion-nav>
+          <ion-nav></ion-nav> 
         </ion-tab>
         <ion-tab tab="tab-log">
           <ion-nav></ion-nav>
@@ -42,13 +30,13 @@ export class AppTabs {
             <ion-icon name="home"></ion-icon>
             <ion-label>Home</ion-label>
           </ion-tab-button>
-         { !!this.archive &&
+         {/* { !!this.archive && */}
 
           <ion-tab-button tab="tab-ledger">
             <ion-icon name="archive"></ion-icon>
-            <ion-badge color="danger">{this.archive}</ion-badge>
+            <ion-badge color="danger"></ion-badge>
             <ion-label>Ledger</ion-label>
-          </ion-tab-button>}
+          </ion-tab-button>
         </ion-tab-bar>
       </ion-tabs>
     );
