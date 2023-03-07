@@ -134,7 +134,7 @@ declare namespace LocalJSX {
     interface AppTabs {
     }
     interface LogActiv {
-        "onFormOneSubmit"?: (event: LogActivCustomEvent<{ name: string; dateone: string; datetwo: string }>) => void;
+        "onFormOneSubmit"?: (event: LogActivCustomEvent<{ name: string; dateone: string; datetwo: string; hour: string}>) => void;
         "onSubmitClicked"?: (event: LogActivCustomEvent<{ archive: number }>) => void;
     }
     interface PageHome {

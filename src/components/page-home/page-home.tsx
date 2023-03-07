@@ -1,5 +1,6 @@
 import { Component, h, State,  Fragment } from '@stencil/core';
-import '@ionic/core';
+
+import { modalController } from '@ionic/core';
 
 
 
@@ -8,6 +9,15 @@ import '@ionic/core';
   styleUrl: 'page-home.css',
 })
 export class PageHome {
+
+  async showModal() {
+    const modal = await modalController.create({
+      component: "log-activ"
+      
+    })
+
+    await modal.present()
+  }
 
   
 
@@ -29,8 +39,8 @@ export class PageHome {
   }
 
   
-  @State() formDataOnes: { name: string; dateone: string; datetwo: string}[] = [];
-  @State() formDataOne: { name: string; dateone: string; datetwo: string };
+  @State() formDataOnes: { name: string; dateone: string; datetwo: string; hour:string}[] = [];
+  @State() formDataOne: { name: string; dateone: string; datetwo: string; hour:string };
 
 
 
@@ -43,7 +53,7 @@ export class PageHome {
   }
  
 
-  handleFormOneSubmit = (event: CustomEvent<{ name: string; dateone: string; datetwo: string }>) => {
+  handleFormOneSubmit = (event: CustomEvent<{ name: string; dateone: string; datetwo: string ; hour:string}>) => {
     this.formDataOne = event.detail;
     
   this.formDataOnes = [...this.formDataOnes, this.formDataOne];
@@ -73,7 +83,7 @@ export class PageHome {
           <p>Need to keep track of your work hours, log ahead!</p>
           <ion-list>
             
-              <ion-button href="/tab/log">
+              <ion-button onClick={() =>this.showModal()}>
               <ion-label>Log new activity</ion-label>       
               </ion-button> 
               {/* {this.formDataOnes.map(formDataOne=>

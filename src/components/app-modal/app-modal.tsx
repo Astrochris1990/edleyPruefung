@@ -26,24 +26,19 @@ export class AppModal {
   handleSubmit = (event: Event) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
-    console.log('Selected date/time:', this.newValue);
-    console.log('Selected date/time TWO:', this.newValueTwo);
+    
     
     const date = this.newValue;
     const datetwo = this.newValueTwo;
     const selectedDates = { date, datetwo };
     this.reportSubmitted.emit(selectedDates);
-    console.log('form data:', this.reportSubmitted);
     this.handleClose();
   };
   handleDateTimeChange(event: CustomEvent<DatetimeChangeEventDetail>) {
     this.newValue = event.detail.value;
-    console.log('Selected date/time:', this.newValue);
-    
   }
   handleDateTimeChangeTwo(event: CustomEvent<DatetimeChangeEventDetail>) {
     this.newValueTwo = event.detail.value;
-    console.log('Selected date/time TWO:', this.newValueTwo);
   }
 
   render() {
