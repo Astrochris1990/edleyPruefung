@@ -1,5 +1,4 @@
-import { modalController } from '@ionic/core';
-import { Component, h } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 
 @Component({
   tag: 'app-tabs',
@@ -7,14 +6,24 @@ import { Component, h } from '@stencil/core';
   // shadow: true,
 })
 export class AppTabs {
+  
+  @State() archive: number;
+  
 
-  async showModal() {
-    const modal = await modalController.create({
-      component: "app-modal"
-    })
-
-    await modal.present()
+  handlesubmitClicked = (event: CustomEvent<{ archive }>) => {
+    this.archive = event.detail.archive;
+    console.log(this.archive)
+  };
+  connectedCallback() {
+    window.addEventListener('submitClicked', this.handlesubmitClicked);
+    
   }
+
+  disconnectedCallback() {
+    window.removeEventListener('submitClicked', this.handlesubmitClicked);
+  }
+
+
 
   render() {
     return (
@@ -22,7 +31,10 @@ export class AppTabs {
         <ion-tab tab="tab-home">
           <ion-nav></ion-nav>
         </ion-tab>
-        <ion-tab tab="tab-notice">
+        <ion-tab tab="tab-ledger">
+          <ion-nav></ion-nav>
+        </ion-tab>
+        <ion-tab tab="tab-log">
           <ion-nav></ion-nav>
         </ion-tab>
         <ion-tab-bar slot="bottom">
@@ -30,11 +42,13 @@ export class AppTabs {
             <ion-icon name="home"></ion-icon>
             <ion-label>Home</ion-label>
           </ion-tab-button>
-          <ion-tab-button tab="tab-notice">
-            <ion-icon name="notifications"></ion-icon>
-            <ion-badge color="danger">12</ion-badge>
-            <ion-label >Notices</ion-label>
-          </ion-tab-button>
+         { !!this.archive &&
+
+          <ion-tab-button tab="tab-ledger">
+            <ion-icon name="archive"></ion-icon>
+            <ion-badge color="danger">{this.archive}</ion-badge>
+            <ion-label>Ledger</ion-label>
+          </ion-tab-button>}
         </ion-tab-bar>
       </ion-tabs>
     );

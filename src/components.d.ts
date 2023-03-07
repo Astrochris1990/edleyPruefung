@@ -6,22 +6,24 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface AppDetail {
+        "thispage": any;
+    }
     interface AppModal {
         "url": string;
     }
-    interface AppPeopleDetail {
-        "personId": number;
+    interface AppModalTwo {
+        "url": string;
     }
     interface AppRoot {
     }
     interface AppTabs {
     }
-    interface CatProfile {
-        "description": string;
-        "name": string;
-        "title": string;
+    interface LogActiv {
     }
     interface PageHome {
+    }
+    interface PageLedger {
     }
     interface PageNotice {
     }
@@ -29,18 +31,36 @@ export namespace Components {
         "name": string;
     }
 }
+export interface AppModalCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLAppModalElement;
+}
+export interface AppModalTwoCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLAppModalTwoElement;
+}
+export interface LogActivCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLLogActivElement;
+}
 declare global {
+    interface HTMLAppDetailElement extends Components.AppDetail, HTMLStencilElement {
+    }
+    var HTMLAppDetailElement: {
+        prototype: HTMLAppDetailElement;
+        new (): HTMLAppDetailElement;
+    };
     interface HTMLAppModalElement extends Components.AppModal, HTMLStencilElement {
     }
     var HTMLAppModalElement: {
         prototype: HTMLAppModalElement;
         new (): HTMLAppModalElement;
     };
-    interface HTMLAppPeopleDetailElement extends Components.AppPeopleDetail, HTMLStencilElement {
+    interface HTMLAppModalTwoElement extends Components.AppModalTwo, HTMLStencilElement {
     }
-    var HTMLAppPeopleDetailElement: {
-        prototype: HTMLAppPeopleDetailElement;
-        new (): HTMLAppPeopleDetailElement;
+    var HTMLAppModalTwoElement: {
+        prototype: HTMLAppModalTwoElement;
+        new (): HTMLAppModalTwoElement;
     };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
@@ -54,17 +74,23 @@ declare global {
         prototype: HTMLAppTabsElement;
         new (): HTMLAppTabsElement;
     };
-    interface HTMLCatProfileElement extends Components.CatProfile, HTMLStencilElement {
+    interface HTMLLogActivElement extends Components.LogActiv, HTMLStencilElement {
     }
-    var HTMLCatProfileElement: {
-        prototype: HTMLCatProfileElement;
-        new (): HTMLCatProfileElement;
+    var HTMLLogActivElement: {
+        prototype: HTMLLogActivElement;
+        new (): HTMLLogActivElement;
     };
     interface HTMLPageHomeElement extends Components.PageHome, HTMLStencilElement {
     }
     var HTMLPageHomeElement: {
         prototype: HTMLPageHomeElement;
         new (): HTMLPageHomeElement;
+    };
+    interface HTMLPageLedgerElement extends Components.PageLedger, HTMLStencilElement {
+    }
+    var HTMLPageLedgerElement: {
+        prototype: HTMLPageLedgerElement;
+        new (): HTMLPageLedgerElement;
     };
     interface HTMLPageNoticeElement extends Components.PageNotice, HTMLStencilElement {
     }
@@ -79,33 +105,41 @@ declare global {
         new (): HTMLPageProfileElement;
     };
     interface HTMLElementTagNameMap {
+        "app-detail": HTMLAppDetailElement;
         "app-modal": HTMLAppModalElement;
-        "app-people-detail": HTMLAppPeopleDetailElement;
+        "app-modal-two": HTMLAppModalTwoElement;
         "app-root": HTMLAppRootElement;
         "app-tabs": HTMLAppTabsElement;
-        "cat-profile": HTMLCatProfileElement;
+        "log-activ": HTMLLogActivElement;
         "page-home": HTMLPageHomeElement;
+        "page-ledger": HTMLPageLedgerElement;
         "page-notice": HTMLPageNoticeElement;
         "page-profile": HTMLPageProfileElement;
     }
 }
 declare namespace LocalJSX {
+    interface AppDetail {
+        "thispage"?: any;
+    }
     interface AppModal {
+        "onReportSubmitted"?: (event: AppModalCustomEvent<{ date: string | string[] }>) => void;
         "url"?: string;
     }
-    interface AppPeopleDetail {
-        "personId"?: number;
+    interface AppModalTwo {
+        "onReportSubmittedTwo"?: (event: AppModalTwoCustomEvent<{ datetwo: string | string[] }>) => void;
+        "url"?: string;
     }
     interface AppRoot {
     }
     interface AppTabs {
     }
-    interface CatProfile {
-        "description"?: string;
-        "name"?: string;
-        "title"?: string;
+    interface LogActiv {
+        "onFormOneSubmit"?: (event: LogActivCustomEvent<{ name: string; dateone: string; datetwo: string }>) => void;
+        "onSubmitClicked"?: (event: LogActivCustomEvent<{ archive: number }>) => void;
     }
     interface PageHome {
+    }
+    interface PageLedger {
     }
     interface PageNotice {
     }
@@ -113,12 +147,14 @@ declare namespace LocalJSX {
         "name"?: string;
     }
     interface IntrinsicElements {
+        "app-detail": AppDetail;
         "app-modal": AppModal;
-        "app-people-detail": AppPeopleDetail;
+        "app-modal-two": AppModalTwo;
         "app-root": AppRoot;
         "app-tabs": AppTabs;
-        "cat-profile": CatProfile;
+        "log-activ": LogActiv;
         "page-home": PageHome;
+        "page-ledger": PageLedger;
         "page-notice": PageNotice;
         "page-profile": PageProfile;
     }
@@ -127,12 +163,14 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "app-detail": LocalJSX.AppDetail & JSXBase.HTMLAttributes<HTMLAppDetailElement>;
             "app-modal": LocalJSX.AppModal & JSXBase.HTMLAttributes<HTMLAppModalElement>;
-            "app-people-detail": LocalJSX.AppPeopleDetail & JSXBase.HTMLAttributes<HTMLAppPeopleDetailElement>;
+            "app-modal-two": LocalJSX.AppModalTwo & JSXBase.HTMLAttributes<HTMLAppModalTwoElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "app-tabs": LocalJSX.AppTabs & JSXBase.HTMLAttributes<HTMLAppTabsElement>;
-            "cat-profile": LocalJSX.CatProfile & JSXBase.HTMLAttributes<HTMLCatProfileElement>;
+            "log-activ": LocalJSX.LogActiv & JSXBase.HTMLAttributes<HTMLLogActivElement>;
             "page-home": LocalJSX.PageHome & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
+            "page-ledger": LocalJSX.PageLedger & JSXBase.HTMLAttributes<HTMLPageLedgerElement>;
             "page-notice": LocalJSX.PageNotice & JSXBase.HTMLAttributes<HTMLPageNoticeElement>;
             "page-profile": LocalJSX.PageProfile & JSXBase.HTMLAttributes<HTMLPageProfileElement>;
         }

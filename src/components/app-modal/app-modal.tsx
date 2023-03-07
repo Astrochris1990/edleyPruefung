@@ -1,82 +1,81 @@
-import { Component, Prop, h ,State} from '@stencil/core';
-import { modalController } from '@ionic/core';
-type myKind ="Typo"|"Fact"
+import { Component, Prop, h, State, Event, EventEmitter } from '@stencil/core';
+import { DatetimeChangeEventDetail, modalController } from '@ionic/core';
+import { format,parseISO} from "date-fns";
+
+
+type ReportKind = 'Typo' | 'Fact';
+
 @Component({
   tag: 'app-modal',
   styleUrl: 'app-modal.css',
   shadow: true,
 })
 export class AppModal {
-  @Prop() url: string;
-
-  @State() title: string = '';
-  
-  @State() kind: myKind ;
-  
-  handleTitleChange(value: string) {
-  this.title = value;
-}
-  handleKindChange(value: myKind) {
-  this.kind = value;
-}
-
-  close() {
+  handleClose = () => {
     modalController.dismiss();
-  
-  }
-  submitReport(event) {
+  };
+  @Prop() url: string;
+  // @State() title: string = '';
+
+  @State() kind: ReportKind;
+  @Event() reportSubmitted: EventEmitter<{ date: string | string[] }>;
+
+  @State() newValue: string | string[] =format(parseISO(format(new Date(),"yyy-MM-dd hh:mm")),'HH:mm a,  d MMM, yyyy') ;
+  @State() newValueTwo: string | string[] =format(parseISO(format(new Date(),"yyy-MM-dd hh:mm")),'HH:mm a,  d MMM, yyyy');
+
+  handleSubmit = (event: Event) => {
     event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+    console.log('Selected date/time:', this.newValue);
+    console.log('Selected date/time TWO:', this.newValueTwo);
+    
+    const date = this.newValue;
+    const datetwo = this.newValueTwo;
+    const selectedDates = { date, datetwo };
+    this.reportSubmitted.emit(selectedDates);
+    console.log('form data:', this.reportSubmitted);
+    this.handleClose();
+  };
+  handleDateTimeChange(event: CustomEvent<DatetimeChangeEventDetail>) {
+    this.newValue = event.detail.value;
+    console.log('Selected date/time:', this.newValue);
+    
+  }
+  handleDateTimeChangeTwo(event: CustomEvent<DatetimeChangeEventDetail>) {
+    this.newValueTwo = event.detail.value;
+    console.log('Selected date/time TWO:', this.newValueTwo);
   }
 
   render() {
     return [
       <ion-header>
         <ion-toolbar>
-          <ion-title>Report improvements</ion-title>
+          <ion-title>Select date and time</ion-title>
           <ion-buttons slot='end'>
-            <ion-button onClick={() => this.close()}>
+            <ion-button onClick={this.handleClose}>
               <ion-icon name='close' slot='icon-only' />
             </ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>,
       <ion-content class='ion-padding'>
-      <form onSubmit={(event) => this.submitReport(event)}>
-        <ion-list lines='full'>
-          <ion-item>
-            <ion-label position='stacked'>
-              SWAPI resource
-            </ion-label>
-            <ion-input readonly disabled name='url' value={this.url} />
-          </ion-item>
-          <ion-item>
-            <ion-label position='stacked'>
-              Kind
-            </ion-label>
-            <ion-select name='kind' placeholder='Please select...' onIonChange={(event) => this.handleKindChange(event.detail.value)}>
-              <ion-select-option value='bacon'>Typo</ion-select-option>
-              <ion-select-option value='olives'>Fact</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label position='stacked'>
-              Title
-            </ion-label>
-            <ion-input name='title' onIonChange={(event) => this.handleTitleChange(event.detail.value)} />
-          </ion-item>
-          <ion-item>
-            <ion-label position='stacked'>
-              Message
-            </ion-label>
-            <ion-text-area  name='message' />
+        <form onSubmit={this.handleSubmit} autocomplete="off">
+
+          <ion-list lines='full'>
+            <ion-item>
+              <ion-label>Start time</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-datetime name='date' size="cover" presentation="date-time" prefer-wheel="true" show-default-buttons="false" done-text="All set" cancel-text="Never mind" onIonChange={this.handleDateTimeChange.bind(this)} ></ion-datetime>
+            </ion-item>
             
-          </ion-item>
-        </ion-list>
-        <ion-button class='ion-float-right' fill='clear' type='submit' disabled={ !!!this.kind || !!!this.title}>Send</ion-button>
-      </form>
-    </ion-content>
+          </ion-list>
+          <ion-button class='ion-float-right' fill='clear' type='submit' disabled={!this.newValueTwo || !this.newValue}>
+            Send
+          </ion-button>
+        </form>
+      </ion-content>,
     ];
-    ;
   }
 
 }

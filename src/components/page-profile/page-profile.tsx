@@ -1,6 +1,9 @@
 import { modalController} from '@ionic/core';
 import { Component, Fragment, h, Prop, State } from '@stencil/core';
 import { API_URL } from '../../helpers/constants';
+import { Toast } from '@capacitor/toast';
+
+
 
 
 
@@ -26,6 +29,14 @@ interface ResponseData {
 })
 
 export class PageProfile {
+
+  async showHelloToast() {
+    await Toast.show({
+      text: 'Hello!',
+      
+    });
+    console.log("sdfas")
+  };
 
   
 
@@ -125,20 +136,39 @@ export class PageProfile {
     return id;
   }
 
+  @State() reportedTitle: string = '';
+
+  handleReportSubmitted = (event: CustomEvent<string>) => {
+    this.reportedTitle = event.detail;
+  };
+
+  connectedCallback() {
+    window.addEventListener('reportSubmitted', this.handleReportSubmitted);
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('reportSubmitted', this.handleReportSubmitted);
+  }
+
   render() {
     return (
       <Fragment>
+        <ion-datetime></ion-datetime>
         <ion-header>
+          <ion-button onClick={()=> this.showHelloToast() }>TOast tester</ion-button>
           <ion-toolbar color="primary">
             <ion-buttons slot="start">
               <ion-back-button defaultHref="/"></ion-back-button>
             </ion-buttons>
             <ion-title>Profile: {this.name}</ion-title>
+            <div>
+        <h1>Reported Title: {this.reportedTitle}</h1>
+      </div>
           </ion-toolbar>
         </ion-header>
         <ion-content class='ion-text-center'>
           <ion-card>
-            <ion-card-header >
+            <ion-card-header onClick={() =>this.showModal()}>
               <h1>
               People search (test Modal)
               </h1>
