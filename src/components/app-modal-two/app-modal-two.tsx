@@ -22,12 +22,10 @@ export class AppModal {
   @State() newValueTwo: string | string[] =format(parseISO(format(new Date(),"yyy-MM-dd hh:mm")),'HH:mm a,  d MMM, yyyy');
 
   handleSubmit = (event: Event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target as HTMLFormElement);
+    event.preventDefault();    
     
-    const date = this.newValue;
     const datetwo = this.newValueTwo;
-    const selectedDates = { date, datetwo };
+    const selectedDates = {  datetwo };
     this.reportSubmittedTwo.emit(selectedDates);
     this.handleClose();
   };

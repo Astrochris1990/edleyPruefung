@@ -25,8 +25,6 @@ export namespace Components {
     }
     interface PageLedger {
     }
-    interface PageNotice {
-    }
     interface PageProfile {
         "name": string;
     }
@@ -92,12 +90,6 @@ declare global {
         prototype: HTMLPageLedgerElement;
         new (): HTMLPageLedgerElement;
     };
-    interface HTMLPageNoticeElement extends Components.PageNotice, HTMLStencilElement {
-    }
-    var HTMLPageNoticeElement: {
-        prototype: HTMLPageNoticeElement;
-        new (): HTMLPageNoticeElement;
-    };
     interface HTMLPageProfileElement extends Components.PageProfile, HTMLStencilElement {
     }
     var HTMLPageProfileElement: {
@@ -113,7 +105,6 @@ declare global {
         "log-activ": HTMLLogActivElement;
         "page-home": HTMLPageHomeElement;
         "page-ledger": HTMLPageLedgerElement;
-        "page-notice": HTMLPageNoticeElement;
         "page-profile": HTMLPageProfileElement;
     }
 }
@@ -135,13 +126,10 @@ declare namespace LocalJSX {
     }
     interface LogActiv {
         "onFormOneSubmit"?: (event: LogActivCustomEvent<{ name: string; dateone: string; datetwo: string; hour: string}>) => void;
-        "onSubmitClicked"?: (event: LogActivCustomEvent<{ archive: number }>) => void;
     }
     interface PageHome {
     }
     interface PageLedger {
-    }
-    interface PageNotice {
     }
     interface PageProfile {
         "name"?: string;
@@ -155,7 +143,6 @@ declare namespace LocalJSX {
         "log-activ": LogActiv;
         "page-home": PageHome;
         "page-ledger": PageLedger;
-        "page-notice": PageNotice;
         "page-profile": PageProfile;
     }
 }
@@ -171,7 +158,6 @@ declare module "@stencil/core" {
             "log-activ": LocalJSX.LogActiv & JSXBase.HTMLAttributes<HTMLLogActivElement>;
             "page-home": LocalJSX.PageHome & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-ledger": LocalJSX.PageLedger & JSXBase.HTMLAttributes<HTMLPageLedgerElement>;
-            "page-notice": LocalJSX.PageNotice & JSXBase.HTMLAttributes<HTMLPageNoticeElement>;
             "page-profile": LocalJSX.PageProfile & JSXBase.HTMLAttributes<HTMLPageProfileElement>;
         }
     }

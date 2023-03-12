@@ -15,7 +15,7 @@ export class AppModal {
     modalController.dismiss();
   };
   @Prop() url: string;
-  // @State() title: string = '';
+  
 
   @State() kind: ReportKind;
   @Event() reportSubmitted: EventEmitter<{ date: string | string[] }>;
@@ -24,13 +24,10 @@ export class AppModal {
   @State() newValueTwo: string | string[] =format(parseISO(format(new Date(),"yyy-MM-dd hh:mm")),'HH:mm a,  d MMM, yyyy');
 
   handleSubmit = (event: Event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target as HTMLFormElement);
-    
-    
+    event.preventDefault();  
     const date = this.newValue;
-    const datetwo = this.newValueTwo;
-    const selectedDates = { date, datetwo };
+    
+    const selectedDates = { date };
     this.reportSubmitted.emit(selectedDates);
     this.handleClose();
   };

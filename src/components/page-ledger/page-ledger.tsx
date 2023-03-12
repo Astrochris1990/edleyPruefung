@@ -8,10 +8,11 @@ import { Component, Fragment, h,   State } from '@stencil/core';
   // shadow: true,
 })
 export class PageNotice {
-  @State() formDataOnes: { name: string; dateone: string; datetwo: string; hour:string}[] = [];
+
+@State() formDataOnes: { name: string; dateone: string; datetwo: string; hour:string}[] = [];
 @State() formDataOne: { name: string; dateone: string; datetwo: string ; hour:string};
 
-async showModal() {
+async showModalLogActive() {
   const modal = await modalController.create({
     component: "log-activ"
     
@@ -20,32 +21,18 @@ async showModal() {
   await modal.present()
 }
 
-
-
-  componentWillLoad() {
+componentWillLoad() {
     this.loadData();
   }
   
 
-  
-  async loadData() {
+async loadData() {
     const storedData = localStorage.getItem('form');
     if (storedData) {
       this.formDataOnes = JSON.parse(storedData);
     }
 
   }
-
-  ionViewWillEnter(){
-    const storedData = localStorage.getItem('form');
-    if (storedData) {
-      this.formDataOnes = JSON.parse(storedData);
-    }
-    console.log("ion view will enter")
-
-  }
-  
-
 
 
 handleFormOneSubmit = (event: CustomEvent<{ name: string; dateone: string; datetwo: string ; hour:string }>) => {
@@ -53,7 +40,6 @@ handleFormOneSubmit = (event: CustomEvent<{ name: string; dateone: string; datet
   
 this.formDataOnes = [...this.formDataOnes, this.formDataOne];
 localStorage.setItem('form', JSON.stringify(this.formDataOnes));
-// console.log("formDataOnes on ledger page: ", this.formDataOnes);
   
 };  
 
@@ -72,7 +58,7 @@ deleteElement(index:number){
   console.log("DELETE ausgeführt",this.formDataOnes)
   
   localStorage.setItem('form', JSON.stringify(this.formDataOnes));
-  window.location.reload()
+  window.location.reload() // Ich hab keine bessere Lösung gefunden
 }
 
 
@@ -96,25 +82,25 @@ deleteElement(index:number){
         
           <ion-card>
           <ion-list>
-            {this.formDataOnes.map((oneData,index) => (
-              <ion-item   href={`/activity/${index}`} >
-                <ion-label>-- {oneData.name}</ion-label>
-                <ion-fab onClick={()=>this.deleteElement(index)} horizontal='end' > 
-    <ion-icon name="trash-outline"></ion-icon> 
-</ion-fab>
-              </ion-item>
-              
-            ))}
+                {this.formDataOnes.map((oneData,index) => (
+                  <ion-item   href={`/activity/${index}`} >
+                    <ion-icon name="arrow-forward-circle-outline"></ion-icon> 
+                    <ion-label> {oneData.name}</ion-label>
+                    <ion-fab onClick={()=>this.deleteElement(index)} horizontal='end' > 
+                    <ion-icon name="trash-outline"></ion-icon> 
+                    </ion-fab>
+                  </ion-item>
+                  
+                ))}
             
           </ion-list>
-         
-
           </ion-card>
+
           <ion-fab horizontal='center'> 
-  <ion-fab-button onClick={() => this.showModal()}>
-    <ion-icon name="add"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
+            <ion-fab-button onClick={() => this.showModalLogActive()}>
+            <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
         </ion-content>
         
       </Fragment>
