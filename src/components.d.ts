@@ -7,7 +7,10 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface AppDetail {
-        "thispage": any;
+        "param1": string;
+        "param2"?: string;
+        "param3"?: string;
+        "param4"?: string;
     }
     interface AppModal {
         "url": string;
@@ -24,11 +27,6 @@ export namespace Components {
     interface PageHome {
     }
     interface PageLedger {
-    }
-    interface PageNotice {
-    }
-    interface PageProfile {
-        "name": string;
     }
 }
 export interface AppModalCustomEvent<T> extends CustomEvent<T> {
@@ -92,18 +90,6 @@ declare global {
         prototype: HTMLPageLedgerElement;
         new (): HTMLPageLedgerElement;
     };
-    interface HTMLPageNoticeElement extends Components.PageNotice, HTMLStencilElement {
-    }
-    var HTMLPageNoticeElement: {
-        prototype: HTMLPageNoticeElement;
-        new (): HTMLPageNoticeElement;
-    };
-    interface HTMLPageProfileElement extends Components.PageProfile, HTMLStencilElement {
-    }
-    var HTMLPageProfileElement: {
-        prototype: HTMLPageProfileElement;
-        new (): HTMLPageProfileElement;
-    };
     interface HTMLElementTagNameMap {
         "app-detail": HTMLAppDetailElement;
         "app-modal": HTMLAppModalElement;
@@ -113,13 +99,14 @@ declare global {
         "log-activ": HTMLLogActivElement;
         "page-home": HTMLPageHomeElement;
         "page-ledger": HTMLPageLedgerElement;
-        "page-notice": HTMLPageNoticeElement;
-        "page-profile": HTMLPageProfileElement;
     }
 }
 declare namespace LocalJSX {
     interface AppDetail {
-        "thispage"?: any;
+        "param1"?: string;
+        "param2"?: string;
+        "param3"?: string;
+        "param4"?: string;
     }
     interface AppModal {
         "onReportSubmitted"?: (event: AppModalCustomEvent<{ date: string | string[] }>) => void;
@@ -134,17 +121,11 @@ declare namespace LocalJSX {
     interface AppTabs {
     }
     interface LogActiv {
-        "onFormOneSubmit"?: (event: LogActivCustomEvent<{ name: string; dateone: string; datetwo: string; hour: string}>) => void;
-        "onSubmitClicked"?: (event: LogActivCustomEvent<{ archive: number }>) => void;
+        "onFormOneSubmit"?: (event: LogActivCustomEvent<{ name: string; dateone: string; datetwo: string; hour: string }>) => void;
     }
     interface PageHome {
     }
     interface PageLedger {
-    }
-    interface PageNotice {
-    }
-    interface PageProfile {
-        "name"?: string;
     }
     interface IntrinsicElements {
         "app-detail": AppDetail;
@@ -155,8 +136,6 @@ declare namespace LocalJSX {
         "log-activ": LogActiv;
         "page-home": PageHome;
         "page-ledger": PageLedger;
-        "page-notice": PageNotice;
-        "page-profile": PageProfile;
     }
 }
 export { LocalJSX as JSX };
@@ -171,8 +150,6 @@ declare module "@stencil/core" {
             "log-activ": LocalJSX.LogActiv & JSXBase.HTMLAttributes<HTMLLogActivElement>;
             "page-home": LocalJSX.PageHome & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-ledger": LocalJSX.PageLedger & JSXBase.HTMLAttributes<HTMLPageLedgerElement>;
-            "page-notice": LocalJSX.PageNotice & JSXBase.HTMLAttributes<HTMLPageNoticeElement>;
-            "page-profile": LocalJSX.PageProfile & JSXBase.HTMLAttributes<HTMLPageProfileElement>;
         }
     }
 }

@@ -6,12 +6,7 @@ import { Component, h, State } from '@stencil/core';
   // shadow: true,
 })
 export class AppTabs {
-  
   @State() archive: number;
-
-  
-
-
 
   render() {
     return (
@@ -20,7 +15,7 @@ export class AppTabs {
           <ion-nav></ion-nav>
         </ion-tab>
         <ion-tab tab="tab-ledger">
-          <ion-nav></ion-nav> 
+          <ion-nav></ion-nav>
         </ion-tab>
         <ion-tab tab="tab-log">
           <ion-nav></ion-nav>
@@ -30,7 +25,6 @@ export class AppTabs {
             <ion-icon name="home"></ion-icon>
             <ion-label>Home</ion-label>
           </ion-tab-button>
-         {/* { !!this.archive && */}
 
           <ion-tab-button tab="tab-ledger">
             <ion-icon name="archive"></ion-icon>
@@ -41,5 +35,4 @@ export class AppTabs {
       </ion-tabs>
     );
   }
-
 }

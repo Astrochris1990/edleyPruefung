@@ -6,9 +6,6 @@ import { Component, h } from '@stencil/core';
   // shadow: true,
 })
 export class AppRoot {
-
-  
-
   render() {
     return (
       <ion-app>
@@ -25,10 +22,10 @@ export class AppRoot {
               <ion-route component="log-activ"></ion-route>
             </ion-route>
           </ion-route>
-          <ion-route url="/activity/:name" component="app-detail"></ion-route>
+          <ion-route url="/activity/:param1" component="app-detail"></ion-route>
         </ion-router>
         <ion-nav></ion-nav>
       </ion-app>
-    )
+    );
   }
 }
