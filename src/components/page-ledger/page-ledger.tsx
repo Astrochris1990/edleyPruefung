@@ -27,7 +27,6 @@ export class PageNotice {
     this.formDataOne = event.detail;
 
     this.formDataOnes = [...this.formDataOnes, this.formDataOne];
-    localStorage.setItem('form', JSON.stringify(this.formDataOnes));
   };
 
   connectedCallback() {
@@ -84,15 +83,10 @@ export class PageNotice {
             <ion-list>
               {this.formDataOnes.map((oneData, index) => (
                 <ion-grid>
-                  <ion-row class="ion-justify-content-between">
+                  <ion-row onClick={() => this.viewProfile(oneData)} class="ion-justify-content-between">
+                    
                     <ion-col size="auto">
-                      <ion-item href={`/activity/${index}`} lines="none">
-                        <ion-icon name="arrow-forward-circle-outline"></ion-icon>
-                        <ion-label>{oneData.name}</ion-label>
-                      </ion-item>
-                    </ion-col>
-                    <ion-col size="auto">
-                      <ion-item onClick={() => this.viewProfile(oneData)} lines="none">
+                      <ion-item  lines="none">
                         <ion-icon name="arrow-forward-circle-outline"></ion-icon>
                         <ion-label>{oneData.name}</ion-label>
                       </ion-item>

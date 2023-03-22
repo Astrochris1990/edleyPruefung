@@ -72,6 +72,7 @@ export class LogActiv {
   @Event() formOneSubmit: EventEmitter<{ name: string; dateone: string; datetwo: string; hour: string }>;
   @State() formDataOnes: { name: string; dateone: string; datetwo: string; hour: string }[] = [];
   @State() formDataOne: { name: string; dateone: string; datetwo: string; hour: string };
+  
   handleSubmit = (event: Event) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
