@@ -21,6 +21,15 @@ export class PageNotice {
     });
 
     await modal.present();
+    console.log('Here we are');
+    modal.onDidDismiss().then(result => {
+      if (result.data) {
+        console.log('Received data from modal:', result.data);
+        this.formDataOne = result.data;
+        this.formDataOnes = [...this.formDataOnes, this.formDataOne];
+        localStorage.setItem('form', JSON.stringify(this.formDataOnes));
+      }
+    });
   }
 
   handleFormOneSubmit = (event: CustomEvent<{ name: string; dateone: string; datetwo: string; hour: string }>) => {
@@ -28,14 +37,6 @@ export class PageNotice {
 
     this.formDataOnes = [...this.formDataOnes, this.formDataOne];
   };
-
-  connectedCallback() {
-    window.addEventListener('formOneSubmit', this.handleFormOneSubmit);
-  }
-
-  disconnectedCallback() {
-    window.removeEventListener('formOneSubmit', this.handleFormOneSubmit);
-  }
 
   componentWillLoad() {
     this.loadData();
@@ -50,12 +51,12 @@ export class PageNotice {
 
   deleteElement(index: number) {
     this.formDataOnes.splice(index, 1);
+    this.formDataOnes = [...this.formDataOnes];
 
     localStorage.setItem('form', JSON.stringify(this.formDataOnes));
 
     console.log('DELETE ausgeführt', this.formDataOnes);
     console.log('DELETE ausgeführt', index);
-    window.location.reload(); // Ich hab keine bessere Lösung gefunden
   }
 
   viewProfile(oneDate) {
@@ -83,10 +84,9 @@ export class PageNotice {
             <ion-list>
               {this.formDataOnes.map((oneData, index) => (
                 <ion-grid>
-                  <ion-row onClick={() => this.viewProfile(oneData)} class="ion-justify-content-between">
-                    
+                  <ion-row class="ion-justify-content-between">
                     <ion-col size="auto">
-                      <ion-item  lines="none">
+                      <ion-item onClick={() => this.viewProfile(oneData)} lines="none">
                         <ion-icon name="arrow-forward-circle-outline"></ion-icon>
                         <ion-label>{oneData.name}</ion-label>
                       </ion-item>

@@ -7,6 +7,7 @@ import { Component, h, State } from '@stencil/core';
 })
 export class AppTabs {
   @State() archive: number;
+  @State() activeTab: string;
 
   render() {
     return (

@@ -1,7 +1,5 @@
 import { Component, h, State, Fragment } from '@stencil/core';
 
-import { modalController } from '@ionic/core';
-
 @Component({
   tag: 'page-home',
   styleUrl: 'page-home.css',
@@ -19,13 +17,8 @@ export class PageHome {
     return /iphone|ipad|ipod/.test(userAgent);
   }
 
-  // This will call the Log-Activity Modal
-  async showModal() {
-    const modal = await modalController.create({
-      component: 'log-activ',
-    });
-    await modal.present();
-  }
+  @State() formDataOnes: { name: string; dateone: string; datetwo: string; hour: string }[] = [];
+  @State() formDataOne: { name: string; dateone: string; datetwo: string; hour: string };
 
   render() {
     return (
@@ -38,7 +31,7 @@ export class PageHome {
         <ion-content class="ion-padding">
           <p>Need to keep track of your work hours, log ahead!</p>
           <ion-list>
-            <ion-button onClick={() => this.showModal()}>
+            <ion-button href="/tab/ledger">
               <ion-label>Log new activity</ion-label>
             </ion-button>
           </ion-list>

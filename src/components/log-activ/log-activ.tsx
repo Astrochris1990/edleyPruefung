@@ -16,8 +16,8 @@ export class LogActiv {
   @State() hour: string;
   @State() title: string = '';
 
-  handleClose = () => {
-    modalController.dismiss();
+  handleClose = newData => {
+    modalController.dismiss(newData);
   };
 
   async showToast() {
@@ -72,7 +72,6 @@ export class LogActiv {
   @Event() formOneSubmit: EventEmitter<{ name: string; dateone: string; datetwo: string; hour: string }>;
   @State() formDataOnes: { name: string; dateone: string; datetwo: string; hour: string }[] = [];
   @State() formDataOne: { name: string; dateone: string; datetwo: string; hour: string };
-  
   handleSubmit = (event: Event) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
@@ -82,19 +81,11 @@ export class LogActiv {
 
     const datetwo = this.endDate;
     const hour = this.hour;
-    this.formOneSubmit.emit({ name, dateone, datetwo, hour });
 
-    const storedData = localStorage.getItem('form');
-    if (storedData) {
-      this.formDataOnes = JSON.parse(storedData);
-    }
     this.formDataOne = { name, dateone, datetwo, hour };
-    this.formDataOnes = [...this.formDataOnes, this.formDataOne];
-    console.log('log data: ', this.formDataOnes);
-    localStorage.setItem('form', JSON.stringify(this.formDataOnes));
 
     this.showToast();
-    this.handleClose();
+    this.handleClose(this.formDataOne);
   };
 
   calculateHour() {
@@ -116,7 +107,7 @@ export class LogActiv {
         <ion-header>
           <ion-toolbar color="primary">
             <ion-buttons slot="start">
-              <ion-back-button defaultHref="/tab/home" onClick={() => this.handleClose()} />
+              <ion-back-button defaultHref="/tab/home" onClick={() => this.handleClose(this.formDataOne)} />
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
