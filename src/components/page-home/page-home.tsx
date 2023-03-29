@@ -36,6 +36,9 @@ export class PageHome {
             </ion-button>
           </ion-list>
         </ion-content>
+        <ion-footer class="ion-padding">
+        <p>This is my project (CL) to complete the edley.de app-dev course.</p>
+        </ion-footer>
       </Fragment>
     );
   }
