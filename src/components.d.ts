@@ -13,10 +13,6 @@ export namespace Components {
         "param4"?: string;
     }
     interface AppModal {
-        "url": string;
-    }
-    interface AppModalTwo {
-        "url": string;
     }
     interface AppRoot {
     }
@@ -28,18 +24,6 @@ export namespace Components {
     }
     interface PageLedger {
     }
-}
-export interface AppModalCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLAppModalElement;
-}
-export interface AppModalTwoCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLAppModalTwoElement;
-}
-export interface LogActivCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLLogActivElement;
 }
 declare global {
     interface HTMLAppDetailElement extends Components.AppDetail, HTMLStencilElement {
@@ -53,12 +37,6 @@ declare global {
     var HTMLAppModalElement: {
         prototype: HTMLAppModalElement;
         new (): HTMLAppModalElement;
-    };
-    interface HTMLAppModalTwoElement extends Components.AppModalTwo, HTMLStencilElement {
-    }
-    var HTMLAppModalTwoElement: {
-        prototype: HTMLAppModalTwoElement;
-        new (): HTMLAppModalTwoElement;
     };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
@@ -93,7 +71,6 @@ declare global {
     interface HTMLElementTagNameMap {
         "app-detail": HTMLAppDetailElement;
         "app-modal": HTMLAppModalElement;
-        "app-modal-two": HTMLAppModalTwoElement;
         "app-root": HTMLAppRootElement;
         "app-tabs": HTMLAppTabsElement;
         "log-activ": HTMLLogActivElement;
@@ -109,19 +86,12 @@ declare namespace LocalJSX {
         "param4"?: string;
     }
     interface AppModal {
-        "onReportSubmitted"?: (event: AppModalCustomEvent<{ date: string | string[] }>) => void;
-        "url"?: string;
-    }
-    interface AppModalTwo {
-        "onReportSubmittedTwo"?: (event: AppModalTwoCustomEvent<{ datetwo: string | string[] }>) => void;
-        "url"?: string;
     }
     interface AppRoot {
     }
     interface AppTabs {
     }
     interface LogActiv {
-        "onFormOneSubmit"?: (event: LogActivCustomEvent<{ name: string; dateone: string; datetwo: string; hour: string }>) => void;
     }
     interface PageHome {
     }
@@ -130,7 +100,6 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "app-detail": AppDetail;
         "app-modal": AppModal;
-        "app-modal-two": AppModalTwo;
         "app-root": AppRoot;
         "app-tabs": AppTabs;
         "log-activ": LogActiv;
@@ -144,7 +113,6 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "app-detail": LocalJSX.AppDetail & JSXBase.HTMLAttributes<HTMLAppDetailElement>;
             "app-modal": LocalJSX.AppModal & JSXBase.HTMLAttributes<HTMLAppModalElement>;
-            "app-modal-two": LocalJSX.AppModalTwo & JSXBase.HTMLAttributes<HTMLAppModalTwoElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "app-tabs": LocalJSX.AppTabs & JSXBase.HTMLAttributes<HTMLAppTabsElement>;
             "log-activ": LocalJSX.LogActiv & JSXBase.HTMLAttributes<HTMLLogActivElement>;

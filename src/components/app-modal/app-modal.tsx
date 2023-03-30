@@ -1,8 +1,6 @@
-import { Component, Prop, h, State, Event, EventEmitter } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 import { DatetimeChangeEventDetail, modalController } from '@ionic/core';
-import { format, parseISO } from 'date-fns';
-
-type ReportKind = 'Typo' | 'Fact';
+import { format } from 'date-fns';
 
 @Component({
   tag: 'app-modal',
@@ -10,30 +8,21 @@ type ReportKind = 'Typo' | 'Fact';
   shadow: true,
 })
 export class AppModal {
-  handleClose = () => {
-    modalController.dismiss();
+  handleClose = newData => {
+    modalController.dismiss(newData);
   };
-  @Prop() url: string;
 
-  @State() kind: ReportKind;
-  @Event() reportSubmitted: EventEmitter<{ date: string | string[] }>;
-
-  @State() newValue: string | string[] = format(parseISO(format(new Date(), 'yyy-MM-dd hh:mm')), 'HH:mm a,  d MMM, yyyy');
-  @State() newValueTwo: string | string[] = format(parseISO(format(new Date(), 'yyy-MM-dd hh:mm')), 'HH:mm a,  d MMM, yyyy');
+  @State() newValue: string | string[] = format(new Date(), 'yyy-MM-dd hh:mm');
 
   handleSubmit = (event: Event) => {
     event.preventDefault();
     const date = this.newValue;
 
-    const selectedDates = { date };
-    this.reportSubmitted.emit(selectedDates);
-    this.handleClose();
+    this.handleClose(date);
+    console.log(date);
   };
   handleDateTimeChange(event: CustomEvent<DatetimeChangeEventDetail>) {
     this.newValue = event.detail.value;
-  }
-  handleDateTimeChangeTwo(event: CustomEvent<DatetimeChangeEventDetail>) {
-    this.newValueTwo = event.detail.value;
   }
 
   render() {
@@ -42,7 +31,7 @@ export class AppModal {
         <ion-toolbar>
           <ion-title>Select date and time</ion-title>
           <ion-buttons slot="end">
-            <ion-button onClick={this.handleClose}>
+            <ion-button onClick={() => this.handleClose(this.newValue)}>
               <ion-icon name="close" slot="icon-only" />
             </ion-button>
           </ion-buttons>
@@ -67,7 +56,7 @@ export class AppModal {
               ></ion-datetime>
             </ion-item>
           </ion-list>
-          <ion-button class="ion-float-right" fill="clear" type="submit" disabled={!this.newValueTwo || !this.newValue}>
+          <ion-button class="ion-float-right" fill="clear" type="submit" disabled={!this.newValue}>
             Send
           </ion-button>
         </form>

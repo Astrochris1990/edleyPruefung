@@ -1,4 +1,4 @@
-import { Component, h, State, Event, EventEmitter, Fragment } from '@stencil/core';
+import { Component, h, State, Fragment } from '@stencil/core';
 import { format, parseISO } from 'date-fns';
 import { modalController } from '@ionic/core';
 import { Toast } from '@capacitor/toast';
@@ -33,43 +33,37 @@ export class LogActiv {
     });
 
     await modal.present();
+    modal.onDidDismiss().then(result => {
+      if (result.data) {
+        console.log('Received data from modal:', result.data);
+
+        this.reportedStartDate = result.data;
+        this.startDate = format(parseISO(result.data), 'HH:mm, d MMM');
+        this.calculateHour();
+      }
+    });
   }
   async showModalTwo() {
     const modal = await modalController.create({
-      component: 'app-modal-two',
+      component: 'app-modal',
     });
 
     await modal.present();
-  }
 
-  handleReportSubmitted = (event: CustomEvent<{ date }>) => {
-    const { date } = event.detail;
-    this.reportedStartDate = date;
-    this.startDate = format(parseISO(date), 'HH:mm, d MMM');
-    this.calculateHour();
-  };
-  handleReportSubmittedTwo = (event: CustomEvent<{ datetwo }>) => {
-    const { datetwo } = event.detail;
-    this.reportedEndDate = datetwo;
-    this.endDate = format(parseISO(datetwo), 'HH:mm, d MMM');
-    this.calculateHour();
-  };
-
-  connectedCallback() {
-    window.addEventListener('reportSubmitted', this.handleReportSubmitted);
-    window.addEventListener('reportSubmittedTwo', this.handleReportSubmittedTwo);
-  }
-
-  disconnectedCallback() {
-    window.removeEventListener('reportSubmitted', this.handleReportSubmitted);
-    window.addEventListener('reportSubmittedTwo', this.handleReportSubmittedTwo);
+    modal.onDidDismiss().then(result => {
+      if (result.data) {
+        console.log('Received data from modal:', result.data);
+        this.reportedEndDate = result.data;
+        this.endDate = format(parseISO(result.data), 'HH:mm, d MMM');
+        this.calculateHour();
+      }
+    });
   }
 
   handleTitleChange = (event: Event) => {
     this.title = (event.target as HTMLInputElement).value;
   };
 
-  @Event() formOneSubmit: EventEmitter<{ name: string; dateone: string; datetwo: string; hour: string }>;
   @State() formDataOnes: { name: string; dateone: string; datetwo: string; hour: string }[] = [];
   @State() formDataOne: { name: string; dateone: string; datetwo: string; hour: string };
   handleSubmit = (event: Event) => {

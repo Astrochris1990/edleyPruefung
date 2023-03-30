@@ -21,7 +21,7 @@ export class PageNotice {
     });
 
     await modal.present();
-    console.log('Here we are');
+
     modal.onDidDismiss().then(result => {
       if (result.data) {
         console.log('Received data from modal:', result.data);
@@ -31,12 +31,6 @@ export class PageNotice {
       }
     });
   }
-
-  handleFormOneSubmit = (event: CustomEvent<{ name: string; dateone: string; datetwo: string; hour: string }>) => {
-    this.formDataOne = event.detail;
-
-    this.formDataOnes = [...this.formDataOnes, this.formDataOne];
-  };
 
   componentWillLoad() {
     this.loadData();
@@ -56,7 +50,6 @@ export class PageNotice {
     localStorage.setItem('form', JSON.stringify(this.formDataOnes));
 
     console.log('DELETE ausgeführt', this.formDataOnes);
-    console.log('DELETE ausgeführt', index);
   }
 
   viewProfile(oneDate) {

@@ -6,37 +6,7 @@ import { Component, h, Prop } from '@stencil/core';
   shadow: true,
 })
 export class AppDetail {
-  // @Prop() thispage;
-
-  // constructor() {
-  //   const items = JSON.parse(localStorage.getItem('form'));
-  //   console.log("paramet1:", this.param1)
-  //   console.log("items:", items)
-  //   const index = items.indexOf(this.param1);
-  //   console.log("items:", index)
-  //   const item = items[index];
-
-  //   this.thispage = item;
-  //   console.log("thispage:", this.thispage)
-
-  // }
-
-  // ionNavWillChange() {
-  //   this.myfunction();
-  // }
-
-  // async myfunction(){
-  //   const items = JSON.parse(localStorage.getItem('form'));
-  //   const navCtrl = document.querySelector("ion-nav");
-  //   console.log(navCtrl); // check if navCtrl is defined and contains the correct element
-  //   const activePage = await navCtrl.getActive();
-  //   console.log(activePage); // check if activePage is defined and contains the correct page object
-  //   console.log(activePage.params.name); // check the value of the params prope
-  //   const item = items[activePage.params.name];
-
-  //     this.thispage = item;
-  //   }
-
+  
   @Prop() param1: string;
   @Prop() param2?: string;
   @Prop() param3?: string;

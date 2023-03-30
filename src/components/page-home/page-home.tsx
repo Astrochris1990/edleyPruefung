@@ -17,9 +17,6 @@ export class PageHome {
     return /iphone|ipad|ipod/.test(userAgent);
   }
 
-  @State() formDataOnes: { name: string; dateone: string; datetwo: string; hour: string }[] = [];
-  @State() formDataOne: { name: string; dateone: string; datetwo: string; hour: string };
-
   render() {
     return (
       <Fragment>
@@ -37,7 +34,7 @@ export class PageHome {
           </ion-list>
         </ion-content>
         <ion-footer class="ion-padding">
-        <p>This is my project (CL) to complete the edley.de app-dev course.</p>
+          <p>This is my project (CL) to complete the edley.de app-dev course.</p>
         </ion-footer>
       </Fragment>
     );
